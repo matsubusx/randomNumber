@@ -13,16 +13,17 @@ function Game () {
                 return alert("Игра закончена!")
             }
             if (checkCorrectNumber(answer)){
-                userAnswer = checkAnswer(+answer, wishNumber, numberOfAttempts);
+                let userAnswer = checkAnswer(+answer, wishNumber, numberOfAttempts);
+                console.log(">> ~ startGame ~ userAnswer", userAnswer);
                 if (userAnswer === true) {
                     wishNumber = getRandomInt(1, 100);
                     numberOfAttempts = 10;
+                    gameFlag = true;
                     startGame();
                 } else if (userAnswer === false) {
                     gameFlag = false;
                     return alert('Спасибо за игру!');
                 } else {
-                    console.log('Im here')
                     numberOfAttempts = userAnswer;
                     console.log(">> ~ startGame ~ numberOfAttempts", userAnswer)
                     startGame();
@@ -31,13 +32,13 @@ function Game () {
                 alert("Введите число!");
                 startGame();
             }
-        } else if (numberOfAttempts === 0 || attempts < 0) {
-            userWish = confirm('Попытки закончились, хотите сыграть еще?')
-            if (userWish) {
+        } else if (numberOfAttempts === 0 || numberOfAttempts < 0) {
+            let userWish = confirm('Попытки закончились, хотите сыграть еще?');
+            if (userWish === true) {
                 wishNumber = getRandomInt(1, 100);
                 numberOfAttempts = 10;
                 startGame();
-            } else {
+            } else if (userWish === false) {
                 gameFlag = false;
                 return alert("Спасибо за игру!");
             }
